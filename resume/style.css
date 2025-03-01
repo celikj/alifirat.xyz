@@ -26,7 +26,16 @@ iframe {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    text-align: center;
 }
 .download-btn:hover {
     background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
+    iframe {
+        width: 95%;
+        height: 60vh;
+    }
 }
