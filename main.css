@@ -67,6 +67,16 @@ body {
     margin-bottom: 3.5em;
 }
 
+.resume a {
+    text-decoration: none;
+    color: #323232;
+    font-weight: 400;
+}
+
+.resume a:hover {
+    text-decoration: underline;
+}
+
 .details {
     font-size: 0.7em;
     text-align: center;
