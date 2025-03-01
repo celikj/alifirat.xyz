@@ -17,16 +17,4 @@
         <iframe src="resume.pdf"></iframe>
     </div>
 </body>
-
-<script>
-    document.querySelector('.download-btn').addEventListener('click', function(event) {
-        event.preventDefault();
-        const link = document.createElement('a');
-        link.href = 'resume.pdf';
-        link.download = 'Resume_AliFiratCelik.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
-</script>
 </html>
