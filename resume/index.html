@@ -4,50 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>resume</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .resume-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        iframe {
-            width: 80%;
-            height: 85vh;
-            border: none;
-        }
-        .download-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .download-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="resume-container">
         <h1>resume</h1>
         <p>Below is a preview of my resume. You can download it using the button below.</p>
         
-        <!-- Download Button -->
+
         <a href="resume.pdf" download class="download-btn">Download resume</a>
-        
-        <!-- PDF preview -->
+
         <iframe src="resume.pdf"></iframe>
     </div>
 </body>
