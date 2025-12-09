@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>resume</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Resume | Ali Firat Celik</title>
+    <style>
+        :root { --bg-color: #121212; --card-bg: #1e1e1e; --text-main: #e0e0e0; --text-muted: #a0a0a0; --accent: #3b82f6; --accent-hover: #2563eb; }
+        body { font-family: 'Segoe UI', Inter, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        nav { width: 100%; padding: 20px; display: flex; justify-content: center; }
+        .home-link { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .home-link:hover { color: var(--accent); }
+        .container { width: 90%; max-width: 1000px; text-align: center; padding-bottom: 40px; }
+        h1 { font-size: 2rem; margin-bottom: 10px; font-weight: 600; }
+        p { color: var(--text-muted); margin-bottom: 30px; }
+        .pdf-wrapper { background-color: var(--card-bg); padding: 10px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); height: 80vh; display: flex; flex-direction: column; }
+        iframe { width: 100%; height: 100%; border: none; border-radius: 8px; background-color: white; }
+        .download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 16px; font-weight: 500; background-color: var(--accent); color: white; text-decoration: none; border-radius: 6px; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2); }
+        .download-btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3); }
+        @media (max-width: 768px) { .pdf-wrapper { height: 60vh; } h1 { font-size: 1.5rem; } }
+    </style>
 </head>
 <body>
-    <div class="resume-container">
-        <h1>resume</h1>
-        <p>Below is a preview of my resume. You can download it using the button below.</p>
-        
-
-        <a href="resume.pdf" download="Ali_Firat_Celik_Resume.pdf" class="download-btn">Download resume</a>
-
-        <iframe src="resume.pdf"></iframe>
+    <nav><a href="/" class="home-link">← Back to alifirat.xyz</a></nav>
+    <div class="container">
+        <h1>Resume</h1>
+        <p>Ali Firat Celik • Computer Engineering, METU</p>
+        <div style="margin-bottom: 20px;">
+            <a href="resume.pdf" class="download-btn" download>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download PDF
+            </a>
+        </div>
+        <div class="pdf-wrapper">
+            <iframe src="resume.pdf#toolbar=0&view=FitH" title="Ali Firat Celik Resume">
+                <p style="color: black;">Your browser does not support PDFs. <a href="resume.pdf">Download the PDF</a>.</p>
+            </iframe>
+        </div>
     </div>
 </body>
 </html>
