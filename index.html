@@ -1,39 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#1A1A1A">
-        <title>Ali Firat</title>
-        
-        <link rel="stylesheet" type="text/css" href="main.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond|Roboto">
-</head>
-<body>
-    <div class="wrapper">
-        <div class="identity" id="output">
-            <div class="contact">0x6D8F8C5B</div>
-            <div class="affiliation">
-                <div class="badge">METU</div>
-                <div class="descriptor">Computer Engineering</div>
-            </div>
-            <div class="fullname">Ali Fırat Çelik</div>
-            <div class="resume">
-                <a href="resume/">Résumé</a>
-            </div>
-            <div class="details">
-                <a href="mailto:celik@alifirat.xyz">celik@alifirat.xyz</a> | 
-                <a href="https://github.com/celikj" target="_blank">github.com/celikj</a> | 
-                GnuPG: 
-                <a href="https://keyserver.ubuntu.com/pks/lookup?search=BD39AC409F717FC48CC3A738CE0FD8836D8F8C5B&fingerprint=on&op=index" target="_blank">BD39AC409F717FC48CC3A738CE0FD8836D8F8C5B</a>
-            </div>
-        </div>
-    </div>
+<html>
+<head>
+<title>Real-time HTML Editor</title>
+<script type="text/javascript">
 
-    <footer class="footer">
-        <p></p>
-    </footer>
-</body>
+var editboxHTML = 
+'<html class="expand close">' +
+'<head>' +
+'<style type="text/css">' +
+'.expand { width: 100%; height: 100%; }' +
+'.close { border: none; margin: 0px; padding: 0px; }' +
+'html,body { overflow: hidden; }' +
+'<\/style>' +
+'<\/head>' +
+'<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
+'<form class="expand close" name="f">' +
+'<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
+'<\/textarea>' +
+'<\/form>' +
+'<\/body>' +
+'<\/html>';
+
+var defaultStuff = '<h3>Welcome to the real-time HTML editor!<\/h3>\n' +
+'<p>Type HTML in the textarea above, and it will magically appear in the frame below.<\/p>';
+
+// I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
+var extraStuff = '<div style="position:absolute; margin:.3em; bottom:0em; right:0em;"><small>\n  Created by <a href="http://www.squarefree.com/" target="_top">Jesse Ruderman<\/a> and hosted by <a href="http://www.dreamhost.com/rewards.cgi?jesseruderman" target="_top">DreamHost<\/a>.\n<\/small><\/div>';
+
+var old = '';
+         
+function init()
+{
+  window.editbox.document.write(editboxHTML);
+  window.editbox.document.close();
+  window.editbox.document.f.ta.value = defaultStuff;
+  update();
+}
+
+function update()
+{
+  var textarea = window.editbox.document.f.ta;
+  var d = dynamicframe.document; 
+
+  if (old != textarea.value) {
+    old = textarea.value;
+    // Changed: Use data URL to set the frame's location, forcing a full reload/clear of previous content to prevent old elements or state from persisting when pasting new code.
+    var content = old;
+    if (old.replace(/[\r\n]/g,'') == defaultStuff.replace(/[\r\n]/g,''))
+      content += extraStuff;
+    var uri = 'data:text/html;charset=utf-8,' + encodeURIComponent(content);
+    dynamicframe.location.href = uri;
+    // End of change
+  }
+
+  window.setTimeout(update, 150);
+}
+
+</script>
+</head>
+
+<frameset resizable="yes" rows="50%,*" onload="init();">
+  <!-- about:blank confuses opera, so use javascript: URLs instead -->
+  <frame name="editbox" src="javascript:'';">
+  <frame name="dynamicframe" src="javascript:'';">
+</frameset>
+
 </html>

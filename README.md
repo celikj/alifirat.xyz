@@ -1,2 +1,0 @@
-# alifirat.xyz
-alifirat.xyz
