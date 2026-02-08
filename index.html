@@ -113,12 +113,10 @@
       `);
       doc.close();
 
-      // Focus and select the textarea after load
       const textarea = doc.getElementById('code');
       textarea.focus();
       textarea.select();
 
-      // Start the update loop
       requestAnimationFrame(update);
     }
 
@@ -135,26 +133,22 @@
         previousContent = currentContent;
 
         let content = currentContent;
-        // Show credit only when showing default content
         if (currentContent.replace(/[\r\n\s]/g, '') === defaultContent.replace(/[\r\n\s]/g, '')) {
           content += creditContent;
         }
 
-        // Use srcdoc for cleaner iframe content replacement (resets all state)
         preview.srcdoc = content;
       }
 
       requestAnimationFrame(update);
     }
 
-    // Resizer functionality
     let isResizing = false;
 
     function startResize() {
       isResizing = true;
       document.body.style.cursor = 'row-resize';
       document.body.style.userSelect = 'none';
-      // Disable pointer events on iframes so they don't capture mouse
       editbox.style.pointerEvents = 'none';
       preview.style.pointerEvents = 'none';
     }
@@ -163,7 +157,7 @@
       if (!isResizing) return;
       const containerRect = container.getBoundingClientRect();
       const percentage = ((clientY - containerRect.top) / containerRect.height) * 100;
-      const clampedPercentage = Math.min(Math.max(percentage, 10), 90);
+      const clampedPercentage = Math.min(Math.max(percentage, 0), 100);
       document.querySelector('.editor-pane').style.flex = `0 0 ${clampedPercentage}%`;
       document.querySelector('.preview-pane').style.flex = `0 0 ${100 - clampedPercentage}%`;
     }
@@ -172,22 +166,18 @@
       isResizing = false;
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
-      // Re-enable pointer events on iframes
       editbox.style.pointerEvents = '';
       preview.style.pointerEvents = '';
     }
 
-    // Mouse events
     resizer.addEventListener('mousedown', startResize);
     document.addEventListener('mousemove', (e) => doResize(e.clientY));
     document.addEventListener('mouseup', stopResize);
 
-    // Touch events for mobile
     resizer.addEventListener('touchstart', (e) => { e.preventDefault(); startResize(); }, { passive: false });
     document.addEventListener('touchmove', (e) => { if (isResizing) doResize(e.touches[0].clientY); }, { passive: true });
     document.addEventListener('touchend', stopResize);
 
-    // Initialize when DOM is ready
     document.addEventListener('DOMContentLoaded', initEditor);
   </script>
 </body>
