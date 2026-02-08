@@ -39,6 +39,8 @@
       flex: 1;
       border: none;
       width: 100%;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .resizer {
@@ -145,38 +147,33 @@
 
     let isResizing = false;
 
-    function startResize() {
+    resizer.addEventListener('pointerdown', (e) => {
       isResizing = true;
+      resizer.setPointerCapture(e.pointerId);
       document.body.style.cursor = 'row-resize';
       document.body.style.userSelect = 'none';
       editbox.style.pointerEvents = 'none';
       preview.style.pointerEvents = 'none';
-    }
+    });
 
-    function doResize(clientY) {
+    resizer.addEventListener('pointermove', (e) => {
       if (!isResizing) return;
       const containerRect = container.getBoundingClientRect();
-      const percentage = ((clientY - containerRect.top) / containerRect.height) * 100;
-      const clampedPercentage = Math.min(Math.max(percentage, 0), 100);
-      document.querySelector('.editor-pane').style.flex = `0 0 ${clampedPercentage}%`;
-      document.querySelector('.preview-pane').style.flex = `0 0 ${100 - clampedPercentage}%`;
-    }
+      const y = e.clientY - containerRect.top;
+      const height = containerRect.height;
+      const editorHeight = Math.max(0, Math.min(height - 4, y));
+      editbox.style.flex = `0 0 ${editorHeight}px`;
+      preview.style.flex = `0 0 ${height - editorHeight - 4}px`;
+    });
 
-    function stopResize() {
+    resizer.addEventListener('pointerup', (e) => {
       isResizing = false;
+      resizer.releasePointerCapture(e.pointerId);
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
       editbox.style.pointerEvents = '';
       preview.style.pointerEvents = '';
-    }
-
-    resizer.addEventListener('mousedown', startResize);
-    document.addEventListener('mousemove', (e) => doResize(e.clientY));
-    document.addEventListener('mouseup', stopResize);
-
-    resizer.addEventListener('touchstart', (e) => { e.preventDefault(); startResize(); }, { passive: false });
-    document.addEventListener('touchmove', (e) => { if (isResizing) doResize(e.touches[0].clientY); }, { passive: true });
-    document.addEventListener('touchend', stopResize);
+    });
 
     document.addEventListener('DOMContentLoaded', initEditor);
   </script>
