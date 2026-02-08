@@ -139,7 +139,17 @@
           content += creditContent;
         }
 
-        preview.srcdoc = content;
+        const oldPreview = document.getElementById('preview');
+        const newPreview = document.createElement('iframe');
+        newPreview.id = 'preview';
+        newPreview.className = 'preview-pane';
+        newPreview.style.cssText = oldPreview.style.cssText;
+        oldPreview.parentNode.replaceChild(newPreview, oldPreview);
+
+        const doc = newPreview.contentDocument;
+        doc.open();
+        doc.write(content);
+        doc.close();
       }
 
       requestAnimationFrame(update);
