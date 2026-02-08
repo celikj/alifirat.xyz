@@ -92,8 +92,8 @@
       }
     `;
 
-    const defaultContent = `<h3>Welcome to the real-time HTML editor!</h3>
-<p>Type HTML in the textarea above, and it will magically appear in the frame below.</p>`;
+    const defaultContent = `<h3>Live HTML Playground</h3>
+<p>Write your HTML code above and watch it render instantly below.</p>`;
 
     const creditContent = `<div style="position:absolute; margin:.3em; bottom:0; right:0; opacity: 0.4;"><small><a href="https://alifirat.xyz" target="_top" style="color: inherit; text-decoration: none;">ali firat celik</a></small></div>`;
 
@@ -154,6 +154,9 @@
       isResizing = true;
       document.body.style.cursor = 'row-resize';
       document.body.style.userSelect = 'none';
+      // Disable pointer events on iframes so they don't capture mouse
+      editbox.style.pointerEvents = 'none';
+      preview.style.pointerEvents = 'none';
     }
 
     function doResize(clientY) {
@@ -169,6 +172,9 @@
       isResizing = false;
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
+      // Re-enable pointer events on iframes
+      editbox.style.pointerEvents = '';
+      preview.style.pointerEvents = '';
     }
 
     // Mouse events
